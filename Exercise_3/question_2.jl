@@ -1,7 +1,30 @@
 function binaryintervalsearch(x,delta, coordinate)
+    p = 1
+    r = length(x[:,coordinate])
+    q = fld((p+r),2)
+    
+    if mod1(r, 2) == 2
+        median = (x[q,coordinate] + x[q+1,coordinate])/2
+    else
+        median = q
+    end
 
-
+    if p <= r
+        #q = fld((p+r),2)
+        if median == x[q,coordinate]
+            return q
+        elseif median < x[q,coordinate]
+            binaryintervalsearch(x[p:q-1,coordinate])
+        else
+            binaryintervalsearch(x[q:r,coordinate])
+        end
+    end
+    return -1
 end
+
+
+
+
 
 function testfunction(test)
     if test == 1
