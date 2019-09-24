@@ -7,7 +7,7 @@ function mergearrays(x,y,coordinate)
     x_counter = 1
     y_counter = 1
     merged = [zeros(Int64, n1) zeros(Int64, n1)]
-    #@show merged
+    @show merged
     for i in 1:n1
        if L[x_counter,coordinate] > R[y_counter,coordinate]
            merged[i,:] = R[y_counter,:]
@@ -37,7 +37,7 @@ function mergesort(x, coordinate)
         @show x
     end
     return x
-end 
+end
 
 
 function testfunction(coordinate)
@@ -51,7 +51,7 @@ function testfunction(coordinate)
     #sorted = mergesort(testarray,coordinate)
     sorted = mergesort(testarray2,coordinate)
     return sorted
-    
+
 end
 
 testfunction(1)
