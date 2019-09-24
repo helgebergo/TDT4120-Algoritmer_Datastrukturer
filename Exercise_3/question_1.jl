@@ -37,7 +37,7 @@ function mergesort(x, coordinate)
         @show x
     end
     return x
-end
+end 
 
 
 function testfunction(coordinate)
@@ -51,6 +51,7 @@ function testfunction(coordinate)
     #sorted = mergesort(testarray,coordinate)
     sorted = mergesort(testarray2,coordinate)
     return sorted
+    
 end
 
 testfunction(1)
