@@ -1,0 +1,3 @@
+function bruteforce(x)
+    
+end
