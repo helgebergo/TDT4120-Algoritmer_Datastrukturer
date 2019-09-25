@@ -25,34 +25,38 @@ function binaryintervalsearch(x,delta, coordinate)
     upper_counter = 0
 
     # Venstre side
-    while lower_index > 0 && x[lower_index,coordinate] >= lower_bound 
-        #= @show x[lower_index,coordinate]
+    while lower_index > 0 && x[lower_index,coordinate] > lower_bound 
+        @show x[lower_index,coordinate]
         @show lower_index
-        @show lower_counter =#
+        @show lower_counter
         lower_index -= 1
         lower_counter += 1
     end
-   #=  @show lower_index
-    @show lower_counter =#
+    @show lower_index
+    @show lower_counter
 
-     # Høyre side
+    # Høyre side
     while upper_index < r && x[upper_index,coordinate] < upper_bound  
         @show x[upper_index+1,coordinate]
         @show upper_index
         @show upper_counter
-        upper_index -= 1
+        upper_index += 1
         upper_counter += 1
-
-        #= upper_index += 1
-        upper_counter += 1
-        @show upper_index
-        @show upper_counter =#
     end
+    @show upper_index
+    @show upper_counter
 
-    if lower_index == 0 && upper_index > r
+    if lower_index <= 0 && upper_index >= r
+        println("utenfor grensene")
+        return -1, -1
+    elseif lower_counter == 0 && upper_counter == 0
+        return -1, -1
+    elseif lower_index == q && upper_index == q
+        println("grensene er medianen")
         return -1, -1
     else
-        return lower_index+1, upper_index
+        println("Oi, kanskje det gikk")
+        return lower_index+1, upper_index-1
     end
 
 end
@@ -65,7 +69,6 @@ function testbinaryintervalsearch(test)
         delta = 1.5 
         coordinate = 1
         return binaryintervalsearch(x,delta,coordinate)
-        # Skal gi 2, 4
     elseif test == 2
         x = [1 2; 2 0; 3 3; 4 4]
         delta = 0.25
@@ -80,7 +83,7 @@ function testbinaryintervalsearch(test)
         # Skal gi 2, 5.
     elseif test == 4
         x = [1.0 0.0; 2.0 0.0; 3.0 0.0] 
-        delta = 1
+        delta = 0.5
         coordinate = 1
         return binaryintervalsearch(x,delta,coordinate)
     else 
