@@ -2,15 +2,15 @@
 function mergearrays(x,y,coordinate)
     n1 = length(x[:,coordinate])
     n2 = length(y[:,coordinate])
+    N = n1 + n2
     L = [x; Inf Inf]
     R = [y; Inf Inf]
     x_counter = 1
     y_counter = 1
-    merged = [zeros(Int64, n1) zeros(Int64, n1)]
+    merged = [zeros(Int64, N) zeros(Int64, N)]
     
     # Problemet er trolig at for-løkken kjører for kort. Må se på n1 og lengden her. 
-
-    for i in 1:n1
+    for i in 1:N
        if L[x_counter,coordinate] <= R[y_counter,coordinate]
             merged[i,:] = L[x_counter,:]
             x_counter += 1
@@ -19,8 +19,6 @@ function mergearrays(x,y,coordinate)
             y_counter += 1
         end
         println("mergearray i = ",i," -> ",merged)
-        #@show merged
-        #@show i
     end
     return merged
 end
@@ -31,15 +29,14 @@ function mergesort(x, coordinate)
     r = length(x[:,coordinate])
     if p < r 
         q = Int(fld(p+r,2))
-        #@show q
-        println("Left = ",x[p:q,:])
-        println("Right = ",x[q+1,:])
-        mergesort(x[p:q,:],coordinate) # left side
-        println("mergesort venstre = ", x[p:q,:])
-        mergesort(x[q+1:r,:],coordinate) #right side
-        println("mergesort høyre = ",x[q+1,:])
-        mergearrays(x[p:q,:], x[q+1:r,:],coordinate)
-        println("mergearray endte opp med = ", x)
+        #println("Left = ",x[p:q,:])
+        #println("Right = ",x[q+1,:])
+        left = mergesort(x[p:q,:],coordinate) # left side
+        #println("mergesort venstre = ", left)
+        right = mergesort(x[q+1:r,:],coordinate) #right side
+        #println("mergesort høyre = ", right)
+        x = mergearrays(left,right,coordinate)
+        #println("mergearray endte opp med = ", x)
     end
     return x
 end
