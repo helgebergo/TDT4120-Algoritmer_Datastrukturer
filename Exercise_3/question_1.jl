@@ -7,22 +7,23 @@ function mergearrays(x,y,coordinate)
     x_counter = 1
     y_counter = 1
     merged = [zeros(Int64, n1) zeros(Int64, n1)]
-    @show merged
+    
+    # Problemet er trolig at for-løkken kjører for kort. Må se på n1 og lengden her. 
+
     for i in 1:n1
-       if L[x_counter,coordinate] > R[y_counter,coordinate]
-           merged[i,:] = R[y_counter,:]
-           y_counter += 1
-        else 
+       if L[x_counter,coordinate] <= R[y_counter,coordinate]
             merged[i,:] = L[x_counter,:]
             x_counter += 1
+        else 
+            merged[i,:] = R[y_counter,:]
+            y_counter += 1
         end
-        
-       @show merged
-       #@show i
+        println("mergearray i = ",i," -> ",merged)
+        #@show merged
+        #@show i
     end
     return merged
 end
-
 
 #x usortert array, coordinate angir koordinat akse vi skal sortere langs
 function mergesort(x, coordinate)
@@ -30,17 +31,21 @@ function mergesort(x, coordinate)
     r = length(x[:,coordinate])
     if p < r 
         q = Int(fld(p+r,2))
-        @show q
+        #@show q
+        println("Left = ",x[p:q,:])
+        println("Right = ",x[q+1,:])
         mergesort(x[p:q,:],coordinate) # left side
+        println("mergesort venstre = ", x[p:q,:])
         mergesort(x[q+1:r,:],coordinate) #right side
+        println("mergesort høyre = ",x[q+1,:])
         mergearrays(x[p:q,:], x[q+1:r,:],coordinate)
-        @show x
+        println("mergearray endte opp med = ", x)
     end
     return x
 end
 
 
-function testfunction(coordinate)
+function testmergesort(coordinate)
     testarray = [1 2; 4 6; 2 1;3 4;5 6;1 8]
     testarray2 = [3.0 0.0; 2.0 0.0; 1.0 0.0]
     #return testarray
@@ -54,4 +59,4 @@ function testfunction(coordinate)
 
 end
 
-testfunction(1)
+#testfunction(1)
