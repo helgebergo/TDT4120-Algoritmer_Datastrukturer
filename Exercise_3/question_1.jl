@@ -2,23 +2,22 @@
 function mergearrays(x,y,coordinate)
     n1 = length(x[:,coordinate])
     n2 = length(y[:,coordinate])
-    N = n1 + n2
-    L = [x; Inf Inf]
-    R = [y; Inf Inf]
+    N = n1 + n2             # Lengde på den mergede lista 
+    L = [x; Inf Inf]        # Lag venstre liste, legg til inf-verdi som sentinel i slutten
+    R = [y; Inf Inf]        # Høyre liste
     x_counter = 1
     y_counter = 1
-    merged = [zeros(Int64, N) zeros(Int64, N)]
+    merged = [zeros(Int64, N) zeros(Int64, N)]  # Lag en tom liste med plass til både x og y
     
-    # Problemet er trolig at for-løkken kjører for kort. Må se på n1 og lengden her. 
     for i in 1:N
-       if L[x_counter,coordinate] <= R[y_counter,coordinate]
+       if L[x_counter,coordinate] <= R[y_counter,coordinate]    # Stabil sortering, sjekk venstre først
             merged[i,:] = L[x_counter,:]
             x_counter += 1
         else 
             merged[i,:] = R[y_counter,:]
             y_counter += 1
         end
-        println("mergearray i = ",i," -> ",merged)
+        println("mergearray i = ",i," -> ",merged)  # Kontrollsjekk at i faktisk går mange nok ganger
     end
     return merged
 end
