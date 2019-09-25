@@ -19,22 +19,41 @@ function binaryintervalsearch(x,delta, coordinate)
     println("Median = ", median,"; Bounds = [",lower_bound,",",upper_bound,"]")
 
     lower_index = q
-    upper_index = q
+    upper_index = q+1
     
     lower_counter = 0
     upper_counter = 0
 
     # Venstre side
-    while lower_bound <= lower_index && lower_index > 0
-
+    while lower_index > 0 && x[lower_index,coordinate] >= lower_bound 
+        #= @show x[lower_index,coordinate]
+        @show lower_index
+        @show lower_counter =#
         lower_index -= 1
         lower_counter += 1
-        @show lower_index
-        @show lower_counter
+    end
+   #=  @show lower_index
+    @show lower_counter =#
+
+     # Høyre side
+    while upper_index < r && x[upper_index,coordinate] < upper_bound  
+        @show x[upper_index+1,coordinate]
+        @show upper_index
+        @show upper_counter
+        upper_index -= 1
+        upper_counter += 1
+
+        #= upper_index += 1
+        upper_counter += 1
+        @show upper_index
+        @show upper_counter =#
     end
 
-    
-    #if lower_index == 0 && upper_index 
+    if lower_index == 0 && upper_index > r
+        return -1, -1
+    else
+        return lower_index+1, upper_index
+    end
 
 end
 
@@ -46,13 +65,21 @@ function testbinaryintervalsearch(test)
         delta = 1.5 
         coordinate = 1
         return binaryintervalsearch(x,delta,coordinate)
+        # Skal gi 2, 4
     elseif test == 2
         x = [1 2; 2 0; 3 3; 4 4]
         delta = 0.25
         coordinate = 1
         return binaryintervalsearch(x,delta,coordinate)
+        # Skal gi -1, -1.
     elseif test == 3
         x = [1 0; 2 0; 2 0; 3 0; 4 0; 5 0; 5 0]
+        delta = 1
+        coordinate = 1
+        return binaryintervalsearch(x,delta,coordinate)
+        # Skal gi 2, 5.
+    elseif test == 4
+        x = [1.0 0.0; 2.0 0.0; 3.0 0.0] 
         delta = 1
         coordinate = 1
         return binaryintervalsearch(x,delta,coordinate)
