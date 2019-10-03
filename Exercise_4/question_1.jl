@@ -1,22 +1,19 @@
 function countingsortletters(A,position)
-    k = 26  # max value, since letters are only a-z lowercase.
-    #= B = []
-    #zeros(Int64,length(A))  # output
-    for i in 1:length(A)
-        push!(B,"")
-    end  =#
-
+    k = 26  # max value, letters are only a-z lowercase
     B = Array{Any}(undef, size(A, 1)) # output array
-
     C = zeros(1,k)   # counting array
+
+    # count letters in A
     for j in 1:length(A)
         C[chartodigit(A[j][position])] += 1
     end
 
+    # accumulate C
     for  i in 2:k
         C[i] = C[i] + C[i-1]
     end
 
+    # go backwards through C, fill in B with correct sorted value from A
     for j in length(A) :-1 : 1
         B[Int(C[chartodigit(A[j][position])])] = A[j]
         C[chartodigit(A[j][position])] -= 1
