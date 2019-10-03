@@ -1,21 +1,29 @@
 function countingsortletters(A,position)
+    k = 26  # max value, since letters are only a-z lowercase.
+    #= B = []
+    #zeros(Int64,length(A))  # output
+    for i in 1:length(A)
+        push!(B,"")
+    end  =#
 
-for j in 2 : length(A)
-key = A[j]
-#println(key)
-i = j-1
-    while i > 0 && A[i][position] > key[position]
-        A[i+1] = A[i]
-        i = i-1
-        end
-    A[i+1] = key
+    B = Array{Any}(undef, size(A, 1)) # output array
+
+    C = zeros(1,k)   # counting array
+    for j in 1:length(A)
+        C[chartodigit(A[j][position])] += 1
     end
-return A
+
+    for  i in 2:k
+        C[i] = C[i] + C[i-1]
+    end
+
+    for j in length(A) :-1 : 1
+        B[Int(C[chartodigit(A[j][position])])] = A[j]
+        C[chartodigit(A[j][position])] -= 1
+    end
+    return B
 end
 
-#A = ["ccc", "cba", "ca", "ab", "abc"]
-
-#print(countingsortletters(A,2))
 
 function chartodigit(character)
     #Dette er en hjelpefunksjon for å få omgjort en char til tall
