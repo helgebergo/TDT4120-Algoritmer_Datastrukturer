@@ -1,10 +1,26 @@
 ## Du skal implementere denne funksjonen 
 function countingsortlength(A)
-    # TODO 
-    return A
+    k = maximum(length.(A)) + 1 # Maximum, plus 1 offset because of "" string
+    B = Array{Any}(undef, size(A, 1)) # output array
+    C = zeros(1,k)   # counting array
+
+    # count length of elements in A
+    for j in 1:length(A)
+        C[length(A[j])+1] += 1
+    end
+
+    # accumulate C
+    for  i in 2:k
+        C[i] = C[i] + C[i-1]
+    end
+
+    # go backwards through C, fill in B with correct sorted value from A
+    for j in length(A) :-1 : 1
+        B[Int(C[length(A[j])+1])] = A[j]
+        C[length(A[j])+1] -= 1 
+    end
+    return B
 end
-
-
 
 
 
