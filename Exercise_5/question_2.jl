@@ -10,11 +10,31 @@ catch
 end
 
 
-
-
 ### Du skal implementere denne funksjonen ###
 function searchtree(root, dna)
-	# din kode
+	count = 0
+	i = 1
+	for c in dna
+		while haskey(root.children[dna[i]],dna[i])
+			next = root.children[dna[i]]
+
+
+		end
+	end
+
+
+	for i in 1:length(dna)
+		if haskey(root.children[dna[i]],dna[i])
+			nextletter = root.children[dna[i]]
+
+		else
+			return -1
+		end
+		for c in dna
+			println(c)
+		end
+	end
+	return 
 end
 
 
@@ -22,17 +42,17 @@ end
 
 ### Konstruert testdata, la stå ###
 root1 = Node(Dict('A' => Node(Dict{Char,Node}(), 1),'G' => Node(Dict('A' => Node(Dict{Char,Node}(), 2)), 1)), 0)
-root2 = Node(Dict('A' => Node(Dict{Char,Node}(), 1),'G' => Node(Dict('A' => Node(Dict{Char,Node}(), 1),'G' => Node(Dict{Char,Node}(), 1)), 1),'T' => Node(Dict('G' => Node(Dict('T' => Node(Dict{Char,Node}(), 1)), 0),'T' => Node(Dict('G' => Node(Dict{Char,Node}(), 1)), 0)), 0),'C' => Node(Dict('C' => Node(Dict('A' => Node(Dict{Char,Node}(), 1)), 1)), 1)), 0)
+root2 = (Node(Dict('A' => Node(Dict{Char,Node}(), 1),'G' => Node(Dict('A' => Node(Dict{Char,Node}(), 1),'G' => 
+Node(Dict{Char,Node}(), 1)), 1),'T' => Node(Dict('G' => Node(Dict('T' => Node(Dict{Char,Node}(), 1)), 0),'T' => 
+Node(Dict('G' => Node(Dict{Char,Node}(), 1)), 0)), 0),'C' => Node(Dict('C' => Node(Dict('A' => 
+Node(Dict{Char,Node}(), 1)), 1)), 1)), 0))
 
 s1 = "AG"
 s2 = "GA"
 s3 = "TGT"
 
-
-
-
 ### Tester ###
-# Disse testene blir kjør når du kjører filen
+# Disse testene blir kjørt når du kjører filen
 # Du trenger ikke å endre noe her, men du kan eksperimentere!
 
 printstyled("\n\n\n---------------\nKjører tester!!\n---------------\n"; color = :magenta)
