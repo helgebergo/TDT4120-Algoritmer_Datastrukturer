@@ -12,31 +12,20 @@ end
 
 ### Du skal implementere denne funksjonen ###
 function searchtree(root, dna)
-	count = 0
-	i = 1
+	@show root
+	@show dna
 	for c in dna
-		while haskey(root.children[dna[i]],dna[i])
-			next = root.children[dna[i]]
-
-
+		@show c
+		try 
+			root = root.children[c]
+			@show root
+		catch
+			return 0
 		end
 	end
 
-
-	for i in 1:length(dna)
-		if haskey(root.children[dna[i]],dna[i])
-			nextletter = root.children[dna[i]]
-
-		else
-			return -1
-		end
-		for c in dna
-			println(c)
-		end
-	end
-	return 
+	return root.count
 end
-
 
 
 
@@ -50,6 +39,7 @@ Node(Dict{Char,Node}(), 1)), 1)), 1)), 0))
 s1 = "AG"
 s2 = "GA"
 s3 = "TGT"
+
 
 ### Tester ###
 # Disse testene blir kjørt når du kjører filen
@@ -70,3 +60,14 @@ end
 println("\nFungerte alt? Prøv å kjør koden i inginious!")
 println("Husk at disse testene ikke alltid sjekker alle edge-cases")
 println("---------------------------------------------------------\n\n")
+
+
+function testsearchtree(root,string)
+    root1 = Node(Dict('A' => Node(Dict{Char,Node}(), 1),'G' => Node(Dict('A' => Node(Dict{Char,Node}(), 2)), 1)), 0)
+    string1 = "AG"
+	
+	
+	return searchtree(root, string)
+
+end
+

@@ -9,6 +9,7 @@ function dnasimilarity(s1, s2)
 end
 
 
+
 ### Tester ###
 # Disse testene blir kjør når du kjører filen
 # Du trenger ikke å endre noe her, men du kan eksperimentere!
