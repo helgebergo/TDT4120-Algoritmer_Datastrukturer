@@ -18,11 +18,14 @@ function searchtree(root, dna)
 		@show c
 		while haskey(root.children,c)
 			root = root.children[c]
-			@show root
-		end
+            @show root
+        else
+
+        end
+        return root.count 
 	end
 
-	return root.count
+	#return root.count
 end
 
 
@@ -60,12 +63,14 @@ println("Husk at disse testene ikke alltid sjekker alle edge-cases")
 println("---------------------------------------------------------\n\n")
 
 
-function testsearchtree()
+function testsearchtree(root2,string)
     root1 = Node(Dict('A' => Node(Dict{Char,Node}(), 1),'G' => Node(Dict('A' => Node(Dict{Char,Node}(), 2)), 1)), 0)
-    string1 = "AG"
+    string1 = "TA"
+    
+    string2 = "G"
+
 	
-	
-	return searchtree(root1, string1)
+	return searchtree(root2, string2)
 
 end
 

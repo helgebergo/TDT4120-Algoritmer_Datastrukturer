@@ -24,7 +24,16 @@ function buildtree(dnasequences)
     root.count = length(dnasequences)
 
     # Din kode
-
+	for sequence in dnasequences
+		current_node = root
+		for letter in sequence
+			if !haskey(current_node.children, letter)
+				current_node.children[letter] = Node()
+			end
+			current_node.children[letter].count += 1
+			current_node = current_node.children[letter]
+		end
+	end
     return root
 end
 
