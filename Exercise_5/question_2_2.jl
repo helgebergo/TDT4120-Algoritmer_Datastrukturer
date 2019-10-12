@@ -20,7 +20,7 @@ function searchtree(root, dna)
 			root = root.children[c]
             @show root
         else
-
+			return -1
         end
         return root.count 
 	end
