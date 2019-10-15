@@ -11,7 +11,7 @@ function backtrack(pathweights)
 		elseif j == cols
 			j = argmin(pathweights[i,j-1:j]) + cols - 2
 		else
-			j = argmin(pathweights[i,j-1:j+1]) - j
+			j = argmin(pathweights[i,j-1:j+1])
 		end
 		push!(path,(i,j))
 		display(path)
