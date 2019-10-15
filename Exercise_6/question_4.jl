@@ -1,5 +1,22 @@
 function backtrack(pathweights)
-
+	rows, cols = size(pathweights)
+	#path = zeros(rows,2)
+	j = argmin(pathweights[rows,:])
+	path = []
+	#path[1,:] = (rows,j)
+	push!(path,(rows,j))
+	for i in rows-1:-1:1
+		if j == 1
+			j = argmin(pathweights[i,j:j+1])
+		elseif j == cols
+			j = argmin(pathweights[i,j-1:j]) + cols - 2
+		else
+			j = argmin(pathweights[i,j-1:j+1]) - j
+		end
+		push!(path,(i,j))
+		display(path)
+	end
+	return path
 end
 
 
