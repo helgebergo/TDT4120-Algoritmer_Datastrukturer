@@ -1,6 +1,17 @@
 function usegreed(coins)
-    # din kode her
+  n = length(coins)
+  isgreedy = true
+  for i in 1:n-1
+    if coins[i] % coins[i+1] == 0
+      isgreedy = true
+    else
+      return false
+    end
+  end
+  return isgreedy
 end
+
+
 
 ### Tester ###
 # Disse testene blir kjørt når du kjører filen
