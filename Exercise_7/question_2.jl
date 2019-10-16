@@ -1,6 +1,15 @@
 function mincoinsgreedy(coins, value)
-    # din kode her
+    mincoins = 0.0
+    i = 1
+    while value > 0
+      rest = value % coins[i]
+      mincoins += fld(value,coins[i])
+      value = rest
+      i += 1
+    end
+    return mincoins
 end
+
 
 ### Tester ###
 # Disse testene blir kjørt når du kjører filen
@@ -12,6 +21,7 @@ using Test
 @testset "Tester" begin
 	@test mincoinsgreedy([1000,500,100,20,5,1],1226) == 6
   @test mincoinsgreedy([20,10,5,1],99) == 10
+  @test mincoinsgreedy([1000,500,100,20,5,1],2567) == 9
   @test mincoinsgreedy([5,1],133) == 29
 end
 
