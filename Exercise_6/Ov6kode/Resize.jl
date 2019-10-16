@@ -1,5 +1,4 @@
 
-
 module Resize
 
 using Images, ImageFiltering
