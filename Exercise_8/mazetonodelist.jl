@@ -37,7 +37,7 @@ function mazetonodelist(maze)
                 catch
                     @warn "No neighbor"
                 end
-                try
+                try 
                     append!(nodearray[i,j].neighbors, nodearray[i-1,j-1])
                 catch
                     @warn "No neighbor"
