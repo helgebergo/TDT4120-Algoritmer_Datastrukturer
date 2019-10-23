@@ -15,10 +15,9 @@ function mazetonodelist(maze)
     # Vi lager en matrise nodearray med størrelse tilsvarende maze,
     # men med Node-objekter isteden
     nodearray = Array{Node}(undef, size(maze, 1), size(maze, 2))
-    distance = 0
-
     for i in 1:size(maze, 1)
         for j in 1:size(maze, 2)
+            # Fyll inn kode for å oppdatere nodearray
             if maze[i,j] == 1
                 nodearray[i,j] = Node(i,j)
             else
@@ -26,49 +25,44 @@ function mazetonodelist(maze)
             end
         end
     end
-    display(maze)
-    display(nodearray)
+    #display(maze)
+    #display(nodearray)
 
     for i in 1:size(maze, 1)
         for j in 1:size(maze, 2)
             if nodearray[i,j].floor == true
-                try
-                    append!(nodearray[i,j].neighbors, nodearray[i-1,j])
-                catch
-                    @warn "No neighbor"
+                if i-1 >= 1 && nodearray[i-1,j].floor == true 
+                    push!(nodearray[i,j].neighbors, nodearray[i-1,j])
                 end
-                try 
-                    append!(nodearray[i,j].neighbors, nodearray[i-1,j-1])
-                catch
-                    @warn "No neighbor"
-                end
-                try
-                    append!(nodearray[i,j].neighbors, nodearray[i+1,j])
-                catch
-                    @warn "No neighbor"
-                end
-                try
-                    append!(nodearray[i,j].neighbors, nodearray[i+1,j+1])
-                catch
-                    @warn "No neighbor"
-                end
-
-                #nodearray[i,j].neighbors = [nodearray[i-1,j], nodearray[i-1,j-1], nodearray[i+1,j], nodearray[i+1,j+1]]
-                
+                if i+1 <= size(maze,1) && nodearray[i+1,j].floor == true 
+                    push!(nodearray[i,j].neighbors, nodearray[i+1,j])
+                end 
+                if j-1 >= 1 && nodearray[i,j-1].floor == true 
+                    push!(nodearray[i,j].neighbors, nodearray[i,j-1])
+                end 
+                if j+1 <= size(maze,2) && nodearray[i,j+1].floor == true 
+                    push!(nodearray[i,j].neighbors, nodearray[i,j+1])
+                end 
             end
             # Fyll inn kode for å oppdatere neighbors til hver node
             # (Husk at naboene alltid er rett over, rett under,
             #  rett til venstre og/eller rett til høyre)
         end
     end
-
-    # Fyll inn kode for å returnere en nodeliste ut ifra nodearray
-    
+    nodes = []
+    for i in 1:size(maze,1)
+        for j in 1:size(maze,2)
+            if nodearray[i,j].floor == true
+                push!(nodes, nodearray[i,j])
+            end
+        end
+    end
+    return nodes
 end
 
 
 ### Tester ###
-# Disse testene blir kjør når du kjører filen
+# Disse testene blir kjørt når du kjører filen
 # Du trenger ikke å endre noe her, men du kan eksperimentere!
 
 # (Følgende er hjelpefunksjoner for testene og kan i utgangspunktet ignoreres)
