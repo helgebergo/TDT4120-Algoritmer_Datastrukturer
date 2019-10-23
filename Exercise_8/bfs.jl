@@ -16,28 +16,33 @@ Node(i, j, floor=true) = Node(i, j, floor, [], nothing, nothing, nothing)
 
 ### Du skal implementere denne funksjonen ###
 function bfs!(nodes, start)
+    goalnode = nothing
     for i in 1:length(nodes)
-        nodes.color = "white"
-        nodes.distance = Inf
-        nodes.predecessor = NaN
+        nodes[i].color = "white"
+        nodes[i].distance = nothing
+        nodes[i].predecessor = nothing
     end
     start.color = "gray"
     start.distance = 0
-    start.predecessor = NaN
-    Q = Queue{Int}()
+    start.predecessor = nothing
+    Q = Queue{Node}()
     enqueue!(Q,start)
     while !isempty(Q)
         u = dequeue!(Q)
-        for v in 1:length(nodes[u].neighbors)
-            if nodes[v].color == "white"
-                nodes[v].color = "gray"
-                nodes[v].distance = u.distance + 1
-                nodes[v].predecessor = u
-                enqueue!(Q,nodes[v])
+        for v in 1:size(u.neighbors,1)
+            if u.neighbors[v].color == "white"
+                u.neighbors[v].color = "gray"
+                u.neighbors[v].distance = u.distance + 1
+                u.neighbors[v].predecessor = u
+                enqueue!(Q,u.neighbors[v])
             end
         end
         u.color = "black"
+        if isgoalnode(u)
+            goalnode = u
+        end
     end
+    return goalnode
 end
 
 
@@ -58,7 +63,7 @@ end
 
 function nodeattrs(node)
     return string(node.color, " ", node.distance, " ",
-                  node.predecessor == nothing ? "nothing" :
+                  node.predecessor === nothing ? "nothing" :
                   (node.predecessor.i, node.predecessor.j))
 end
 
@@ -87,7 +92,7 @@ using Test
     result = bfs!(nodelist, nodelist[1])
 
     # Test at å kjøre bfs mot et utilgjengelig mål returnerer nothing
-    @test result == nothing
+    @test result === nothing
 
     setgoalnode(nodelist[7])
     result = bfs!(nodelist, nodelist[1])
