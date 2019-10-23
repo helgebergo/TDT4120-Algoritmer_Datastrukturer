@@ -16,12 +16,33 @@ Node(i, j, floor=true) = Node(i, j, floor, [], nothing, nothing, nothing)
 
 ### Du skal implementere denne funksjonen ###
 function bfs!(nodes, start)
-    # @@@@@   Din kode her   @@@@@
+    for i in 1:length(nodes)
+        nodes.color = "white"
+        nodes.distance = Inf
+        nodes.predecessor = NaN
+    end
+    start.color = "gray"
+    start.distance = 0
+    start.predecessor = NaN
+    Q = Queue{Int}()
+    enqueue!(Q,start)
+    while !isempty(Q)
+        u = dequeue!(Q)
+        for v in 1:length(nodes[u].neighbors)
+            if nodes[v].color == "white"
+                nodes[v].color = "gray"
+                nodes[v].distance = u.distance + 1
+                nodes[v].predecessor = u
+                enqueue!(Q,nodes[v])
+            end
+        end
+        u.color = "black"
+    end
 end
 
 
 ### Tester ###
-# Disse testene blir kjør når du kjører filen
+# Disse testene blir kjørt når du kjører filen
 # Du trenger ikke å endre noe her, men du kan eksperimentere!
 
 # (Følgende er hjelpefunksjoner for testene og kan i utgangspunktet ignoreres)
