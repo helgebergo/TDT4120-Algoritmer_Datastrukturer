@@ -49,7 +49,8 @@ function mazetonodelist(maze)
             #  rett til venstre og/eller rett til høyre)
         end
     end
-    nodes = []
+    return [node for node in nodearray if node.floor] # Hentet fra øvingsforelesning. 
+    #= nodes = []
     for i in 1:size(maze,1)
         for j in 1:size(maze,2)
             if nodearray[i,j].floor == true
@@ -57,7 +58,7 @@ function mazetonodelist(maze)
             end
         end
     end
-    return nodes
+    return nodes =#
 end
 
 

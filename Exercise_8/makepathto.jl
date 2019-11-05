@@ -14,7 +14,14 @@ Node(i, j, floor=true) = Node(i, j, floor, [], nothing, nothing, nothing)
 
 ### Du skal implementere denne funksjonen ###
 function makepathto(goalnode)
-    # @@@@@   Din kode her   @@@@@
+    # Hentet fra LF
+    path = [(goalnode.i), goalnode.j]
+    nextnode = goalnode.predecessor
+    while nextnode != nothing
+        push!(path, (nextnode.i, nextnode.j))
+        nextnode = nextnode.predecessor
+    end
+    return reverse(path)
 end
 
 
