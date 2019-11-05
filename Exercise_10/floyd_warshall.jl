@@ -7,6 +7,6 @@ function floyd_warshall(adjacency_matrix, nodes, f, g)
             end
         end
     end
-    return D
+    return D    # Ikke sant ;) 
 end
 
