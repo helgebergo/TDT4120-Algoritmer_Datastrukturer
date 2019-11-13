@@ -22,7 +22,7 @@ function general_dijkstra!(G, w, s, reverse=false)
         Q = PriorityQueue{Node}()
         #Q = PriorityQueue(u => for u in G.V)
     end
-    enqueue!(Q,s)
+    enqueue!(Q,s,w[s])
     while !isempty(Q)
         u = dequeue!(Q)
         S = [S, u]
